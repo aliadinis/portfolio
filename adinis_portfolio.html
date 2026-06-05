@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alia Dinis | Engenheira de Software</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#faf7f3;
+  --bg2:#f4ede4;
+  --bg3:#ecdfd2;
+
+  --accent:#9a4a28;
+  --accent2:#c06238;
+
+  --text:#1a1410;
+  --text2:#7c6b58;
+
+  --border:#e3d9ce;
+  --card:#ffffff;
+
+  --nav-h:64px;
+  --radius:12px;
+  --shadow:0 2px 16px rgba(80,40,10,.06);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);
+  background:rgba(250,247,243,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;
+}
+.nav-brand{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.15rem;font-weight:700;text-decoration:none;letter-spacing:0.02em;font-style:italic}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--text2);font-size:.82rem;font-weight:600;text-decoration:none;transition:color .2s;letter-spacing:.04em;text-transform:uppercase}
+.nav-links a:hover{color:var(--accent)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text2);border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--card);border-bottom:1px solid var(--border);padding:1rem 2rem;z-index:99}
+.mobile-menu.open{display:block}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.mobile-menu a{color:var(--text2);text-decoration:none;font-size:.9rem;font-weight:500}
+.mobile-menu a:hover{color:var(--accent)}
+
+section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
+
+#top{
+  min-height:100vh;display:flex;align-items:center;
+  padding-top:var(--nav-h);max-width:1100px;margin:0 auto;
+}
+.hero-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2rem;align-items:center;width:100%;
+}
+.hero-left{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.hero-tag{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:500;
+  color:var(--text2);
+  font-size:.75rem;
+  margin-bottom:1.4rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  display:block;
+}
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,6.5vw,5rem);
+  font-weight:700;
+  line-height:1.05;
+  margin-bottom:1.4rem;
+  color:var(--text);
+  letter-spacing:-.025em;
+}
+.hero-name span{
+  color:var(--accent);
+  font-style:italic;
+}
+.hero-desc{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.98rem;
+  color:var(--text2);
+  max-width:460px;
+  line-height:1.9;
+  margin-bottom:2rem;
+  font-weight:400;
+}
+.hero-desc span{
+  color:var(--text);
+  font-weight:600;
+}
+.hero-socials{display:flex;gap:.8rem;margin-bottom:2rem}
+.hero-socials a{
+  display:flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--border);color:var(--text2);
+  text-decoration:none;transition:.2s;background:var(--card);
+}
+.hero-socials a:hover{border-color:var(--accent);color:var(--accent);background:rgba(192,17,94,.05)}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.btn{display:inline-block;padding:.7rem 1.7rem;border-radius:6px;font-size:.84rem;font-weight:600;text-decoration:none;transition:.2s;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.01em}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+.portrait-container {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  height: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.portrait-glow {
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(197, 139, 115, 0.38) 0%, rgba(250, 247, 243, 0) 70%);
+  border-radius: 50%;
+  z-index: 1;
+  top: 45%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: smoothGlowPulse 6s ease-in-out infinite alternate;
+}
+
+.hero-portrait {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0px 8px 24px rgba(0,0,0,0.06));
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 98%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 98%);
+}
+
+@keyframes smoothGlowPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+}
+
+.scroll-hint {
+  margin-top: 1rem;display:inline-flex;align-items:center;gap:.5rem;
+  color:var(--text2);font-size:.78rem;font-weight:600;text-decoration:none;
+}
+.scroll-arrow{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.65rem;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+.section-sep{width:32px;height:1.5px;background:var(--accent);border-radius:2px;margin-bottom:1rem;opacity:.7}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;margin-bottom:1.4rem;letter-spacing:-.02em;line-height:1.1}
+.section-title span{color:var(--accent);font-style:italic}
+
+.about-text p{color:var(--text2);margin-bottom:1.2rem;line-height:1.8;font-size:.95rem}
+.about-text a{color:var(--accent);text-decoration:none;font-weight:500}
+.about-text a:hover{text-decoration:underline}
+
+/* TIMELINE ACADÉMICA */
+.timeline{margin-top:2.5rem;position:relative;padding-left:1.5rem;border-left:2px solid var(--border)}
+.timeline-item{position:relative;margin-bottom:2rem}
+.timeline-item::before{
+  content:'';position:absolute;left:-1.95rem;top:0.25rem;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--bg);
+}
+.timeline-date{font-size:.78rem;font-weight:600;color:var(--accent);margin-bottom:.3rem}
+.timeline-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.2rem}
+.timeline-inst{font-size:.85rem;color:var(--text2);font-weight:500;margin-bottom:.5rem}
+.timeline-desc{font-size:.85rem;color:var(--text2);line-height:1.6}
+.timeline-bullets{list-style:none;margin-top:.5rem;padding-left:0}
+.timeline-bullets li{position:relative;padding-left:1rem;font-size:.82rem;color:var(--text2);margin-bottom:.3rem}
+.timeline-bullets li::before{content:'•';position:absolute;left:0;color:var(--accent);font-weight:bold}
+
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}
+.service-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem 1.5rem;transition:.3s}
+.service-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 4px 20px rgba(37,99,235,.08)}
+.service-icon-svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--accent);
+  stroke-width: 1.75;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+.service-card h3{font-size:1rem;font-weight:600;margin-bottom:.5rem;color:var(--text)}
+.service-card p{color:var(--text2);font-size:.85rem;line-height:1.6}
+
+/* FEATURED */
+.featured-card{display:grid;grid-template-columns:1fr 1fr;margin-bottom:1.8rem;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:.25s}
+.featured-card:hover{box-shadow:0 6px 28px rgba(80,40,10,.08)}
+.featured-card:nth-child(even){direction:rtl}
+.featured-card:nth-child(even)>*{direction:ltr}
+.featured-img{background:linear-gradient(135deg,var(--bg3),var(--bg2));display:flex;align-items:center;justify-content:center;position:relative;min-height:260px}
+.featured-img-svg{width:80px;height:80px;stroke:var(--text);stroke-width:1.25;opacity:0.15}
+.featured-content{padding:1.4rem 1.6rem;display:flex;flex-direction:column;justify-content:center}
+.featured-label{color:var(--accent);font-size:.7rem;font-weight:600;margin-bottom:.5rem;display:block;letter-spacing:0.1em;text-transform:uppercase}
+.featured-content h2{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:.55rem;color:var(--text);font-weight:700}
+.desc-title{color:var(--accent);font-size:.68rem;font-weight:600;letter-spacing:.05em;margin-bottom:.25rem;text-transform:uppercase}
+.featured-content p{color:var(--text2);font-size:.81rem;line-height:1.6;margin-bottom:.65rem}
+.tech-stack{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.tech-badge{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:.18rem .6rem;font-size:.71rem;color:var(--text2);font-weight:500}
+.feat-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--accent);font-size:.83rem;text-decoration:none;font-weight:600}
+.feat-link:hover{text-decoration:underline}
+
+.sort-bar{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.sort-bar label{color:var(--text2);font-size:.85rem;font-weight:500}
+.sort-select{background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.4rem .8rem;font-size:.85rem;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;color-scheme:dark}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:.25s}
+.proj-card:hover{border-color:var(--accent);box-shadow:0 4px 20px rgba(80,40,10,.08)}
+.proj-img{aspect-ratio:16/9;background:linear-gradient(135deg,var(--bg3),var(--bg2));display:flex;align-items:center;justify-content:center}
+.proj-icon-svg {
+  width: 48px;
+  height: 48px;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0.4;
+}
+.proj-body{padding:1.2rem}
+.proj-body h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.7rem;color:var(--text)}
+.proj-body p{color:var(--text2);font-size:.82rem;line-height:1.6;margin-bottom:.8rem}
+
+/* SKILLS SECTION — flip cards */
+@keyframes flipCard{
+  0%,38%{transform:rotateY(0deg)}
+  48%,88%{transform:rotateY(180deg)}
+  100%{transform:rotateY(360deg)}
+}
+.skill-flip-grid{display:flex;flex-wrap:wrap;gap:1.1rem;margin-top:2rem}
+.skill-flip{width:96px;height:96px;perspective:700px;cursor:default}
+.skill-flip-inner{
+  width:100%;height:100%;position:relative;
+  transform-style:preserve-3d;
+  animation:flipCard 5s ease-in-out infinite;
+  animation-delay:var(--d,0s);
+}
+.skill-flip:hover .skill-flip-inner{animation-play-state:paused}
+.skill-front,.skill-back{
+  position:absolute;inset:0;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:12px;border:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;
+  background:var(--card);
+  transition:border-color .2s,box-shadow .2s;
+}
+.skill-flip:hover .skill-front,.skill-flip:hover .skill-back{border-color:var(--accent);box-shadow:0 4px 16px rgba(154,74,40,.12)}
+.skill-back{transform:rotateY(180deg)}
+.skill-front img,.skill-front svg{width:40px;height:40px;object-fit:contain}
+.skill-back span{font-size:.68rem;font-weight:700;color:var(--text);text-align:center;padding:0 .4rem;line-height:1.3}
+.skill-back .skill-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin-bottom:.1rem}
+
+
+/* CONTACT */
+#contact .contact-grid{display:grid;grid-template-columns:1fr;gap:4rem}
+.contact-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;padding:1.2rem 1.4rem;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:.2s}
+.contact-item:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(192,17,94,.08)}
+.contact-item-svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--accent);
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+.contact-item-text{font-size:.85rem}
+.contact-item-text strong{display:block;margin-bottom:.2rem;color:var(--text)}
+.contact-item-text a{color:var(--accent);text-decoration:none}
+.contact-item-text span{color:var(--text2)}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group label{font-size:.8rem;color:var(--text2);font-weight:500}
+.form-group input,.form-group textarea{background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem 1rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;transition:.2s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--accent)}
+.char-count{font-size:.73rem;color:var(--text2);text-align:right}
+.captcha-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem;cursor:pointer}
+.captcha-box input[type=checkbox]{accent-color:var(--accent);cursor:pointer;width:16px;height:16px}
+.captcha-box label{font-size:.85rem;color:var(--text2);cursor:pointer;font-weight:500}
+.form-error{font-size:.8rem;color:#dc2626;display:none;font-weight:500}
+.form-success{font-size:.88rem;color:#16a34a;background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.25);border-radius:8px;padding:.8rem 1rem;display:none;font-weight:500}
+
+footer{border-top:1px solid var(--border);padding:2rem;max-width:1100px;margin:0 auto}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1rem}
+.footer-socials{display:flex;gap:.8rem}
+.footer-socials a{color:var(--text2);font-size:.85rem;text-decoration:none;display:flex;align-items:center;gap:.3rem;font-weight:500}
+.footer-socials a:hover{color:var(--accent)}
+.footer-copy{font-size:.75rem;color:var(--text2);text-align:center;border-top:1px solid var(--border);padding-top:1rem;font-weight:400}
+.footer-copy a{color:var(--accent);text-decoration:none}
+.back-top{display:block;text-align:center;margin-top:2rem;color:var(--text2);font-size:.8rem;text-decoration:none;font-weight:600}
+.back-top:hover{color:var(--accent)}
+
+.svg-icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+
+@media(max-width:992px){
+  .hero-inner{grid-template-columns:1.2fr 0.8fr;gap:1.5rem}
+  .portrait-container{height:520px; max-width:480px;}
+  .portrait-glow{width:500px;height:500px;}
+}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-inner{grid-template-columns:1fr;text-align:center; gap: 1rem; padding-bottom: 2rem;}
+  .portrait-container{
+    width:100%;
+    max-width:380px;
+    height:400px;
+    margin:0 auto;
+    order:1;
+  }
+  .portrait-glow{width:380px;height:380px;}
+  .hero-left{order:2}
+  .hero-socials{justify-content:center}
+  .hero-btns{justify-content:center}
+  .featured-card{grid-template-columns:1fr}
+  .featured-card:nth-child(even){direction:ltr}
+  #contact .contact-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .scroll-hint{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top" class="nav-brand">alia.dinis</a>
+  <ul class="nav-links">
+    <li><a href="#top">Home</a></li>
+    <li><a href="#about">Sobre</a></li>
+    <li><a href="#projects">Projetos</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#top" onclick="closeMenu()">Home</a></li>
+    <li><a href="#about" onclick="closeMenu()">Sobre</a></li>
+    <li><a href="#projects" onclick="closeMenu()">Projetos</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contacto</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="top">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">HELLO WORLD!</div>
+      <h1 class="hero-name">I'm Alia Dinis<span>.</span></h1>
+      <p class="hero-desc">Sou estudante de <span>Engenharia de Software</span> na 42 Luanda, focada em sistemas de baixo nível, DevOps e arquitetura de aplicações modernas.</p>
+      
+      <div class="hero-socials">
+        <a href="https://github.com/aliadinis" target="_blank" title="GitHub">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+        <a href="mailto:aliadinis18@gmail.com" title="Email Direct">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">Trabalhe Comigo</a>
+        <a href="#featured" class="btn btn-outline">Ver Projetos</a>
+      </div>
+      
+      <a href="#about" class="scroll-hint">
+        <span class="scroll-arrow">↓</span>
+        rolar para baixo
+      </a>
+    </div>
+
+    <!-- Portrait section com brilho marrom sutil e esmaecimento linear -->
+    <div class="portrait-container">
+      <div class="portrait-glow"></div>
+      <div class="hero-portrait">
+        <img 
+          id="heroPortraitImg" 
+          src="https://i.imgur.com/NPfSMM2.png" 
+          alt="Alia Dinis" 
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-sep"></div>
+  <h2 class="section-title">Sobre <span>Mim</span></h2>
+  <div class="about-text">
+    <p>Sou engenheira de software em formação na <strong>42 Luanda</strong>, onde concluí o Common Core em maio de 2026 e atualmente me preparo para futuras especializações dentro do programa <strong>RNCP Nível 7</strong> (equivalente a mestrado).</p>
+
+    <p>A minha entrada na tecnologia começou por curiosidade, que evoluiu com o desafio intenso da 42 — uma formação prática baseada em projetos e resolução de problemas reais. Esse percurso, apesar de exigente, consolidou a minha base técnica e o gosto por aprendizagem contínua.</p>
+
+    <p>Desenvolvi um interesse profundo por compreender como sistemas são construídos desde a base, incluindo infraestrutura, arquitetura e mecanismos de segurança. Hoje, sigo focada em aprofundar a minha carreira em engenharia de software, com o objetivo futuro de me especializar em <strong>Ciência de Dados</strong> e <strong>Inteligência Artificial</strong>.</p>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin:2.5rem 0 1rem; color:var(--text)">Percurso <span>Académico</span></h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">2024 — Mai. 2026</div>
+        <div class="timeline-title">Common Core — Engenharia de Software</div>
+        <div class="timeline-inst">42 Luanda</div>
+        <p class="timeline-desc">Percurso concluído em maio de 2026. Projetos intensivos de alta complexidade com progressão para RNCP Nível 7 — Expert en Architecture Informatique (equivalente a mestrado Bac+5, reconhecido pelo Estado Francês).</p>
+        <ul class="timeline-bullets">
+          <li>Construção e otimização de algoritmos complexos de computação gráfica e redes de dados em C/C++.</li>
+          <li>Administração de sistemas Linux, criação de containers isolados no Docker e orquestração controlada.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2023</div>
+        <div class="timeline-title">Piscine Imersiva</div>
+        <div class="timeline-inst">42 Luanda</div>
+        <p class="timeline-desc">Bootcamp extremamente seletivo e intensivo de 30 dias focados em programação de sistemas UNIX e computação algorítmica sob pressão contínua.</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2021 — 2025</div>
+        <div class="timeline-title">Técnico Médio de Finanças</div>
+        <div class="timeline-inst">Instituto Politécnico Privado do Sequele</div>
+        <p class="timeline-desc">Formação em finanças focada na análise de fluxos financeiros, gestão de recursos e estruturação de processos organizacionais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FEATURED -->
+<section id="featured">
+  <div class="section-sep"></div>
+  <h2 class="section-title">Projetos em <span>Destaque</span></h2>
+
+  <!-- Transcendence - Karma Store -->
+  <div class="featured-card">
+    <div class="featured-img">
+      <img src="karma.png" alt="Karma Store" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <div class="featured-content">
+      <span class="featured-label">// Transcendence - E-commerce</span>
+      <h2>Karma Store (Equipamentos de Jiu-Jitsu)</h2>
+      <p class="desc-title">DESCRIÇÃO</p>
+      <p>Plataforma completa e robusta de comércio eletrónico desenvolvida com autenticação segura JWT/OAuth 2.0, gestão real de utilizadores (2FA), catálogo de kimonos profissionais e visualizador interativo em 3D integrado via Three.js. Conta com faturamento automatizado no padrão angolano (AKZ, taxas de IVA e referência para pagamento por Multicaixa) com envio por e-mail.</p>
+      <p class="desc-title">TECNOLOGIAS USADAS</p>
+      <div class="tech-stack">
+        <span class="tech-badge">Next.js</span>
+        <span class="tech-badge">React</span>
+        <span class="tech-badge">TypeScript</span>
+        <span class="tech-badge">PostgreSQL</span>
+        <span class="tech-badge">Prisma ORM</span>
+        <span class="tech-badge">Docker</span>
+      </div>
+      <a href="https://transcendence-snowy.vercel.app" target="_blank" class="feat-link">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Visitar Loja Online
+      </a>
+    </div>
+  </div>
+
+  <!-- ft_irc -->
+  <div class="featured-card">
+    <div class="featured-img">
+      <img src="irc.jpg" alt="ft_irc" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <div class="featured-content">
+      <span class="featured-label">// Comunicação &amp; Redes</span>
+      <h2>ft_irc (Servidor IRC)</h2>
+      <p class="desc-title">DESCRIÇÃO</p>
+      <p>Servidor IRC (Internet Relay Chat) totalmente operacional e compatível com clientes oficiais. Implementado do zero em C++98 com sockets TCP/IP no paradigma orientado a objetos, suporte a múltiplos clientes simultâneos e multiplexação de I/O com poll().</p>
+      <p class="desc-title">TECNOLOGIAS USADAS</p>
+      <div class="tech-stack">
+        <span class="tech-badge">C++98</span>
+        <span class="tech-badge">TCP/IP</span>
+        <span class="tech-badge">Sockets</span>
+        <span class="tech-badge">Multiplexação de I/O</span>
+        <span class="tech-badge">OOP</span>
+      </div>
+      <a href="https://github.com/lleodev/ft_irc" target="_blank" class="feat-link">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> Ver no GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MORE PROJECTS -->
+<section id="projects">
+  <div class="section-sep"></div>
+  <h2 class="section-title">Mais <span>Projetos</span></h2>
+  <div class="sort-bar">
+    <label>Ordenar por</label>
+    <select class="sort-select" id="sortSelect" onchange="sortProjects()">
+      <option value="default">Padrão</option>
+      <option value="az">A a Z</option>
+      <option value="za">Z a A</option>
+    </select>
+  </div>
+  <div class="projects-grid" id="projectsGrid">
+    
+    <!-- Inception -->
+    <div class="proj-card" data-name="Inception">
+      <div class="proj-img">
+        <img src="inception.webp" alt="Inception" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="proj-body">
+        <h3>Inception Infrastructure</h3>
+        <p class="desc-title">DESCRIÇÃO</p>
+        <p>Infraestrutura multi-containerizada com Docker Compose, NGINX com SSL/TLS, WordPress com PHP-FPM e MariaDB em Alpine Linux.</p>
+        <p class="desc-title">TECNOLOGIAS</p>
+        <div class="tech-stack"><span class="tech-badge">Docker Compose</span><span class="tech-badge">NGINX</span><span class="tech-badge">SSL/TLS</span><span class="tech-badge">Alpine Linux</span></div>
+        <a href="https://github.com/aliadinis" target="_blank" class="feat-link"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> GitHub</a>
+      </div>
+    </div>
+    
+    <!-- Cub3D -->
+    <div class="proj-card" data-name="cub3D">
+      <div class="proj-img">
+        <img src="cub3d.png" alt="cub3D" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="proj-body">
+        <h3>cub3D (Motor Gráfico)</h3>
+        <p class="desc-title">DESCRIÇÃO</p>
+        <p>Motor gráfico estilo "Wolfenstein 3D" construído com algoritmos de ray-casting baseados em trigonometria e cálculo de colisão vetorial.</p>
+        <p class="desc-title">TECNOLOGIAS</p>
+        <div class="tech-stack"><span class="tech-badge">Linguagem C</span><span class="tech-badge">Ray-Casting</span><span class="tech-badge">MiniLibX</span></div>
+        <a href="https://github.com/aliadinis" target="_blank" class="feat-link"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> GitHub</a>
+      </div>
+    </div>
+
+    <!-- Minishell -->
+    <div class="proj-card" data-name="Minishell">
+      <div class="proj-img">
+        <img src="minishell.gif" alt="Minishell" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="proj-body">
+        <h3>Minishell (Shell UNIX)</h3>
+        <p class="desc-title">DESCRIÇÃO</p>
+        <p>Recriação e implementação estável de um interpretador de comandos completo em C com tratamento de sinais do sistema e gestão de processos.</p>
+        <p class="desc-title">TECNOLOGIAS</p>
+        <div class="tech-stack"><span class="tech-badge">Linguagem C</span><span class="tech-badge">UNIX API</span><span class="tech-badge">Gestão de Processos</span></div>
+        <a href="https://github.com/aliadinis" target="_blank" class="feat-link"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-sep"></div>
+  <h2 class="section-title">Minhas <span>Competências</span></h2>
+  <div class="skill-flip-grid">
+
+    <div class="skill-flip" style="--d:0s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" alt="C"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>C</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:.3s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>C++</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:.6s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>JavaScript</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:.9s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js" style="filter:invert(.85)"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>Next.js</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:1.2s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>React</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:1.5s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>HTML</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:1.8s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>CSS</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:2.1s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>Tailwind CSS</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:2.4s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>PostgreSQL</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:2.7s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mariadb/mariadb-original.svg" alt="MariaDB"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>MariaDB</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:3s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>Docker</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:3.3s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nginx/nginx-original.svg" alt="NGINX"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>NGINX</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:3.6s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>Linux / Unix</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:3.9s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>Git</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:4.2s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>GitHub</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:4.5s">
+      <div class="skill-flip-inner">
+        <div class="skill-front">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="var(--accent)" stroke-width="1.8"/><path d="M4 20h32M20 4c-5 6-5 26 0 32M20 4c5 6 5 26 0 32M7 11h26M7 29h26" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="skill-back"><div class="skill-dot"></div><span>TCP/IP</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:4.8s">
+      <div class="skill-flip-inner">
+        <div class="skill-front"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="Sockets"></div>
+        <div class="skill-back"><div class="skill-dot"></div><span>Sockets C/C++</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:5.1s">
+      <div class="skill-flip-inner">
+        <div class="skill-front">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="4" width="32" height="32" rx="6" stroke="var(--accent)" stroke-width="1.8"/><path d="M4 14h32M4 26h32M20 4v32" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="skill-back"><div class="skill-dot"></div><span>DNS</span></div>
+      </div>
+    </div>
+
+    <div class="skill-flip" style="--d:5.4s">
+      <div class="skill-flip-inner">
+        <div class="skill-front">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="8" width="14" height="10" rx="3" stroke="var(--accent)" stroke-width="1.8"/><rect x="22" y="22" width="14" height="10" rx="3" stroke="var(--accent)" stroke-width="1.8"/><path d="M11 18v4h18v-4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="skill-back"><div class="skill-dot"></div><span>Sub-redes</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-sep"></div>
+  <h2 class="section-title">Entrar em <span>Contacto</span></h2>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-item">
+        <svg class="contact-item-svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        <div class="contact-item-text">
+          <strong>Email</strong>
+          <a href="mailto:aliadinis18@gmail.com">aliadinis18@gmail.com</a><br>
+          <span>Envie-me um email direto</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <svg class="contact-item-svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+        <div class="contact-item-text">
+          <strong>Telefone</strong>
+          <a href="tel:+244947514270">+244 947 514 270</a><br>
+          <span>Contacto móvel</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <svg class="contact-item-svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        <div class="contact-item-text">
+          <strong>Localização</strong>
+          <span>Luanda, Angola</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-socials">
+      <a href="https://github.com/aliadinis" target="_blank"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> GitHub</a>
+      <a href="mailto:aliadinis18@gmail.com"><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Email</a>
+      <a href="https://linkedin.com" target="_blank"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a>
+    </div>
+    <span class="footer-socials" style="font-size:.8rem; color:var(--text2)">Português (AO)</span>
+  </div>
+  <div class="footer-copy">
+    Projetado e desenvolvido por Alia Dinis &nbsp;|&nbsp;
+    © 2026 Alia Dinis, Todos os direitos reservados. &nbsp;|&nbsp;
+    Luanda, Angola
+  </div>
+  <a href="#top" class="back-top">↑ voltar ao topo</a>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open')}
+function updateCount(inputId,countId){document.getElementById(countId).textContent=document.getElementById(inputId).value.length}
+function toggleCaptcha(){const cb=document.getElementById('captchaCheck');cb.checked=!cb.checked}
+function submitForm(){
+  const name=document.getElementById('fname').value.trim();
+  const email=document.getElementById('femail').value.trim();
+  const subject=document.getElementById('fsubject').value.trim();
+  const msg=document.getElementById('fmessage').value.trim();
+  const captcha=document.getElementById('captchaCheck').checked;
+  const errEl=document.getElementById('formError');
+  const succEl=document.getElementById('formSuccess');
+  errEl.style.display='none';succEl.style.display='none';
+  if(!captcha){errEl.textContent='É necessário confirmar que é um ser humano.';errEl.style.display='block';return}
+  if(!name||!email||!subject||!msg){errEl.textContent='Por favor, preencha todos os campos do formulário.';errEl.style.display='block';return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){errEl.textContent='Insira um endereço de e-mail válido.';errEl.style.display='block';return}
+  succEl.style.display='block';
+  ['fname','femail','fsubject','fmessage'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('captchaCheck').checked=false;
+  ['nameCount','emailCount','subjectCount','msgCount'].forEach(id=>document.getElementById(id).textContent='0');
+}
+function sortProjects(){
+  const val=document.getElementById('sortSelect').value;
+  const grid=document.getElementById('projectsGrid');
+  const cards=Array.from(grid.querySelectorAll('.proj-card'));
+  if(val==='az')cards.sort((a,b)=>a.dataset.name.localeCompare(b.dataset.name));
+  else if(val==='za')cards.sort((a,b)=>b.dataset.name.localeCompare(a.dataset.name));
+  else cards.sort((a,b)=>a.dataset.name==='ft_irc'?-1:1);
+  cards.forEach(c=>grid.appendChild(c));
+}
+</script>
+</body>
+</html>
